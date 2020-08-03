@@ -1,0 +1,123 @@
+<div class="cartContainerDiv">
+    <div class="cartContainer">
+        <div style="color: #6a7a89;" *ngFor="let header of cartHeaderLabel"> {{header}}</div>
+    </div>
+    <div class="noProductClassDiv">
+        <div *ngIf="!displayCart" class="noProductClass" style="margin: 0px 10px;">
+            <div>THERE ARE NO PRODUCTS</div>
+        </div>
+        <div *ngIf="displayCart">
+            <div *ngFor="let cart of cartItems;let i = index" style="margin: 0px 10px;background-color: #ffffff;" class="cartContainer">
+                <div> 
+                    <span (click)="deleteItem(i)" style="cursor: pointer;">
+                        <i  class="fa fa-window-close"></i>
+                    </span>{{cart['name'] | titlecase}}
+                </div>
+                <div> {{cart['price']}}</div>
+                <div>
+                    <span (click)="deleteQuantity(cart,i)"><i class="fa fa-minus-square"></i></span>
+                    {{cart['quantity']}}
+                    <span (click)="addQuantity(cart)"><i class="fa fa-plus-square"></i></span>
+                </div>
+                <div> {{cart['total']}} INR</div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <table class="tableContainer">
+            <tr>
+                <td class="boldClass">
+                    SubTotal
+                </td>
+                <td>
+                    {{numberOfTotalItems}} Items
+                </td>
+                <td>
+                    {{priceOfIems}} INR
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    VAT Tax
+                </td>
+                <td>
+                    10%
+                </td>
+                <td>
+                    <span *ngIf="calculatedTax">{{calculatedTax | number :'1.2'}} INR</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Discount
+                </td>
+                <td>
+                    10%
+                </td>
+                <td>
+                    <span *ngIf="calculatedTax">{{calculatedTax | number :'1.2'}} INR</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Total
+                </td>
+                <td>
+                    <span *ngIf="totalPriceWithTaxes">{{totalPriceWithTaxes}} INR</span>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <button class="cancelClass" (click)="cancelSale()">Cancel Sale</button>
+        <button class="processSale" (click)="processSale()">Process Sale</button>
+    </div>
+</div>
+
+<div id="myModal" class="modal"  *ngIf="displayModel">
+    <div class="modal-content">
+        <div style="height: 30px;display:flex;background-color: black;">
+            <span style="padding:3px 3px;color: #ffffff;text-align: left;">Receipt</span>
+        </div>
+        <div style="font-size:13px;margin: 5px 5px">
+            <span class="boldClass">Date :</span> {{getDateAndTime}}
+        </div>
+        <div style="height:230px;overflow:auto">
+            <table class="tableContainer">
+                <tr class="borderBottomGrey">
+                    <td>#</td>
+                    <td>Products</td>
+                    <td>Quantity</td>
+                    <td>SubTotal</td>
+                </tr>
+                <tr *ngFor="let cart of cartItems;let i=index" class="borderBottomGrey">
+                    <td style="border: none;">{{i+1}}</td>
+                    <td style="border: none;">{{cart['name']}}</td>
+                    <td style="border: none;">{{cart['quantity']}}</td>
+                    <td style="border: none;">{{cart['quantity'] * cart['price']}}</td>
+                </tr>
+                <tr class="borderBottomGrey">
+                    <td></td>
+                    <td>Total Items</td>
+                    <td>{{numberOfTotalItems}} Total</td>
+                    <td>{{totalPriceWithTaxes}} INR</td>
+                </tr>
+                <tr class="borderBottomGrey">
+                    <td></td>
+                    <td></td>
+                    <td>Discount</td>
+                    <td>10%</td>
+                </tr>
+                <tr class="borderBottomGrey">
+                    <td></td>
+                    <td></td>
+                    <td>VAT</td>
+                    <td>10%</td>
+                </tr>
+            </table>
+        </div>
+        <button class="closeClass" (click)="close()">close</button>
+    </div>
+</div>

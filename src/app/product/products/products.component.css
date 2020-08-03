@@ -1,0 +1,16 @@
+.posContainer {
+    margin-top:4%;
+}
+.cartContainer {
+    width: 39%;
+    float:left;
+    background-color:#ecf0f1;
+    margin: 0.5%;
+}
+.listContainer {
+    width: 59%;
+    height: 580px; 
+    float:right;
+    background-color:#ecf0f1;
+    margin: 0.5%;
+}

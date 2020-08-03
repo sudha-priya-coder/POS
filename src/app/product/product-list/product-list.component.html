@@ -1,0 +1,5 @@
+<div style="display: flex;flex-wrap: wrap;">
+    <div *ngFor="let item of productList">
+        <img (click)="selectItem(item)" class="imageOfProduct" src="assets/pos/images/{{item['image']}}">
+    </div>
+</div>
